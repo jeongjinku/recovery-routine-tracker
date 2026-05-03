@@ -9,7 +9,6 @@
   --green-dark: #1e5f42;
   --amber: #c7812e;
   --coral: #d7654b;
-  --blue: #356f8d;
   --shadow: 0 18px 50px rgba(25, 32, 28, 0.1);
 }
 
@@ -111,14 +110,18 @@ h2 {
   line-height: 1.65;
 }
 
+.pulse-panel,
+.reminder-panel {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 18px;
+}
+
 .pulse-panel {
   display: flex;
   gap: 14px;
   align-items: flex-start;
-  padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .pulse-dot {
@@ -131,7 +134,8 @@ h2 {
   box-shadow: 0 0 0 7px rgba(241, 187, 89, 0.16);
 }
 
-.pulse-panel p {
+.pulse-panel p,
+.reminder-panel p {
   margin: 6px 0 0;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.45;
@@ -140,10 +144,6 @@ h2 {
 .reminder-panel {
   display: grid;
   gap: 10px;
-  padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .reminder-panel label {
@@ -164,13 +164,6 @@ h2 {
 
 .reminder-panel button.is-on {
   background: #f1bb59;
-}
-
-.reminder-panel p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 0.86rem;
-  line-height: 1.45;
 }
 
 .section-nav {
@@ -449,6 +442,10 @@ textarea {
 
 .delete-log:hover {
   background: #e9cabf;
+}
+
+.empty-state {
+  color: var(--muted);
 }
 
 .app-toast {

@@ -2,13 +2,13 @@
   "name": "회복 루틴 트래커",
   "short_name": "회복 루틴",
   "description": "과로, 건강 루틴, 가족 시간을 함께 기록하는 모바일 트래커",
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#f7f4ee",
   "theme_color": "#25352d",
   "icons": [
     {
-      "src": "./icon.svg",
+      "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
