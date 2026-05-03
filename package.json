@@ -1,0 +1,14 @@
+{
+  "name": "recovery-routine-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1"
+  },
+  "devDependencies": {
+    "vercel": "^41.7.0"
+  }
+}
