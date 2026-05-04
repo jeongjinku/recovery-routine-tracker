@@ -2,8 +2,31 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCoupleId, getSupabaseAdmin } from "@/lib/supabase";
 import type { LogEntry } from "@/lib/types";
 
+function getLocalDataApiBase() {
+  if (process.env.NODE_ENV !== "development") return "";
+  return process.env.LOCAL_DATA_API_BASE_URL || "";
+}
+
+async function proxyToRemoteApi(path: string, init?: RequestInit) {
+  const baseUrl = getLocalDataApiBase();
+  if (!baseUrl) return null;
+
+  const response = await fetch(`${baseUrl.replace(/\/$/, "")}${path}`, {
+    ...init,
+    headers: {
+      "content-type": "application/json",
+      ...init?.headers,
+    },
+    cache: "no-store",
+  });
+  return NextResponse.json(await response.json(), { status: response.status });
+}
+
 export async function GET() {
   try {
+    const proxied = await proxyToRemoteApi("/api/logs");
+    if (proxied) return proxied;
+
     const supabase = getSupabaseAdmin();
     const { data, error } = await supabase
       .from("logs")
@@ -24,6 +47,12 @@ export async function POST(request: NextRequest) {
     if (!log?.date) {
       return NextResponse.json({ error: "Missing log date" }, { status: 400 });
     }
+
+    const proxied = await proxyToRemoteApi("/api/logs", {
+      method: "POST",
+      body: JSON.stringify(log),
+    });
+    if (proxied) return proxied;
 
     const supabase = getSupabaseAdmin();
     const { error } = await supabase.from("logs").upsert(
@@ -49,6 +78,11 @@ export async function DELETE(request: NextRequest) {
     if (!date) {
       return NextResponse.json({ error: "Missing log date" }, { status: 400 });
     }
+
+    const proxied = await proxyToRemoteApi(`/api/logs?date=${encodeURIComponent(date)}`, {
+      method: "DELETE",
+    });
+    if (proxied) return proxied;
 
     const supabase = getSupabaseAdmin();
     const { error } = await supabase

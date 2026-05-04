@@ -2,5 +2,6 @@
 node_modules/
 out/
 .env*.local
+.vercel/
 package-lock.json
 tsconfig.tsbuildinfo
